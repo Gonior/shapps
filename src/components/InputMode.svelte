@@ -3,9 +3,9 @@
     import Modal from "./Modal.svelte";
     import { modeStore} from '../lib/store'
     import {db} from "../lib/firebase";
+    import { onMount } from "svelte";
     // import {collectionData} from "rxfire/firestore";
     // import {startWith} from "rxjs/operators";
-    const query = db.collection("nums");
     let openModal = {open : false, input : true, id:""}
     let nums = ""
     let ref = null
@@ -13,6 +13,10 @@
     db.collection("nums").orderBy("pos", "asc").onSnapshot(snapdata => {
         numsList = snapdata.docs
         
+    })
+
+    onMount(() => {
+        ref.focus()
     })
     const handleData = (e) => {
         openModal.open = e.detail.openModal
@@ -23,8 +27,8 @@
             floor:floor,
             number:number,
             pos : date.getTime()
-            
         });
+        ref.focus()
         
     }
 
@@ -63,7 +67,7 @@
       
     </div>
     <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto">
-      <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-600 text-xl">Lantai 1</h1>
+      <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 1</h1>
       <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
         
         {#each numsList.filter(n => n.data().floor === "Lantai 1") as n}
@@ -77,7 +81,7 @@
     </div>
     <div class="">
       <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto sm:h-[52vh] mb-2">
-        <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-600 text-xl">Lantai 2</h1>
+        <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 2</h1>
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {#each numsList.filter(n => n.data().floor === "Lantai 2") as n}
                 <button on:click={() => handleOpenModal(false, n.id)}>
@@ -91,7 +95,7 @@
         </div>
       </div>
       <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto sm:h-[37vh]">
-        <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-600 text-xl">Lantai 3</h1>
+        <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 3</h1>
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {#each numsList.filter(n => n.data().floor === "Lantai 3") as n}
                 <button on:click={() => handleOpenModal(false, n.id)}>

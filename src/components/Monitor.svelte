@@ -51,7 +51,7 @@
     
   </div>
   <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto">
-    <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-600 text-xl">Lantai 1</h1>
+    <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 1</h1>
     <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
       
       {#each numsList.filter(n => n.data().floor === "Lantai 1") as n}
@@ -65,7 +65,7 @@
   </div>
   <div class="">
     <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto sm:h-[52vh] mb-2">
-      <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-600 text-xl">Lantai 2</h1>
+      <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 2</h1>
       <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {#each numsList.filter(n => n.data().floor === "Lantai 2") as n}
             <NumberComp num={n.data().number} />
@@ -74,8 +74,8 @@
 
       </div>
     </div>
-    <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto sm:h-[37vh]">
-      <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-600 text-xl">Lantai 3</h1>
+    <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto sm:h-[37vh] ">
+      <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 3</h1>
       <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {#each numsList.filter(n => n.data().floor === "Lantai 3") as n}
             <NumberComp num={n.data().number} />
