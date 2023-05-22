@@ -9,10 +9,11 @@
     export let num
 
     onMount(() => { 
+        
         if(numsid) {
 
             db.collection('nums').doc(numsid).onSnapshot(snapData => {
-                console.log(snapData.data())
+                
                 floors = [...floors.map((f) => {
                     if (f.value===snapData.data().floor) f.active = true
                     else f.active = false
@@ -47,10 +48,7 @@
             value : "Lantai 3",
         }
     ]
-    // if (!inputMode) {
-    //     console.log(numsid)
     
-    // }
     const selectedFloor = (id) => {
         floors = [...floors.map((f) => {
             if (id===f.id) f.active = true
