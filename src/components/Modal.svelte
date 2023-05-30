@@ -87,7 +87,7 @@
 </script>
 {#if openModal}
 <div class="inset-0 bg-purple-500 absolute z-20 bg-opacity-60 flex items-center justify-center">
-    <div class="rounded-lg bg-purple-50 shadow p-4 flex flex-col w-3/4 md:w-1/4 items-center">
+    <div class="rounded-lg bg-purple-50 shadow p-4 flex flex-col w-3/4 md:w-1/3 lg:w-1/4 items-center">
         <h6 class="font-semibold text-base text-gray-400">Nomor Meja</h6>
         <h1 class="font-bold text-5xl mb-5">{num}</h1>
         <h6 class="font-semibold text-base text-gray-400 mb-1">Tempat Duduk</h6>
