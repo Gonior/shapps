@@ -13,7 +13,6 @@
         if(numsid) {
 
             db.collection('nums').doc(numsid).onSnapshot(snapData => {
-                
                 floors = [...floors.map((f) => {
                     if (f.value===snapData.data().floor) f.active = true
                     else f.active = false

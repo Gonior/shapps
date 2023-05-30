@@ -39,6 +39,7 @@
 </script>
 
 <div>
+  
   <svelte:component this={menus.find(menu => menu.selected).components} ></svelte:component>
   
 </div>
