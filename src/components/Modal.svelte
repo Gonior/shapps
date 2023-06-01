@@ -1,14 +1,17 @@
 <script>
     import {createEventDispatcher, onMount} from 'svelte'
     import {db} from '../lib/firebase'
-    // import { content} from '../lib/store'
-    
     export let inputMode = true
     export let openModal = false
     export let numsid
     export let num
-
+    let area = "None"
+    let prefix = 1
+    let areaOption = [{value:'None'},{value : "L", max : 10},{value:"B", max : 12}, {value:"D", max : 6}]
+    
+    
     onMount(() => { 
+        
         
         if(numsid) {
 
@@ -19,6 +22,14 @@
                     return {id : f.id, active : f.active, value : f.value}
                 })]
                 num = snapData.data().number
+                area = snapData.data().area
+                if (floors.find(floor => floor.active === true).id === 1 && area !== "None"){
+                    prefix = parseInt(area.substr(1,length > 3 ? 2 : 1 ))
+                    area = area.substr(length - 1 , 1 )
+                    console.log({area,prefix})
+                }
+
+                
             })
              
             // let data = $content.find(d => d.id === numsid)
@@ -61,7 +72,9 @@
         
         if (!inputMode) {
             // $content.find(f => f.id === numsid).floor = floors.find(floor => floor.active === true).value
-            db.collection('nums').doc(numsid).update({floor :floors.find(floor => floor.active === true).value })
+            db.collection('nums').doc(numsid).update({floor :floors.find(floor => floor.active === true).value})
+            if(floors.find(floor => floor.active === true).id !== 1) db.collection('nums').doc(numsid).update({area : "None"})
+            else if (area !== "None") db.collection('nums').doc(numsid).update({area : `G${prefix}${area}`})
             dispatch('data', {
                 inputMode : false,
                 openModal : false,    
@@ -94,11 +107,36 @@
         <div class="flex flex-col space-y-2 md:space-y-0 md:flex-row justify-between w-full mb-5">
             {#each floors as floor}
                 <button class="rounded-lg p-4 shadow font-semibold {floor.active ? "bg-purple-500 text-white" : 'bg-purple-100'} transform active:scale-90 duration-150 ease-in-out" on:click={() => selectedFloor(floor.id)}>{floor.value}</button>
-            
             {/each}
-            
         </div>
-        
+        {#if !inputMode && floors.find(floor => floor.active === true).id === 1}
+            <div class="flex w-full justify-between items-center mb-5">
+                <h6 class="font-semibold text-base text-gray-400">Pilih Gazebo</h6>
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="justify-center flex flex-col">
+                        <span class="text-gray-400">Area</span>
+                        <select bind:value={area} on:change={() => prefix = 1}>
+                            {#each areaOption as opt}
+                                <option value={opt.value}>{opt.value}</option>    
+                            {/each}
+                        </select>
+                    </div>
+                    
+                    {#if area !== "None"}
+                    
+                    <div class="justify-center flex flex-col">
+                        <span class="text-gray-400">Prefix</span>
+                        <select bind:value={prefix}>
+                        {#each {length: areaOption.find(a => a.value === area).max} as _, i}
+                            <option value={i+1}>{i+1}</option>
+                        {/each}
+                        </select>
+                    </div>
+                    {/if}
+                </div>
+
+            </div>
+        {/if}
         <div class="flex {inputMode? 'justify-center' : 'justify-between'} w-full">
             {#if !inputMode}
             <button on:click={() => deleteData()} class="uppercase font-semibold  text-red-500 inline-flex transform active:scale-90 duration-150 ease-in-out space-x-1 items-center justify-center">
@@ -106,7 +144,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                   </svg>
                   Hapus
-                  </button>
+            </button>
             {/if}
             <button on:click={closeModal} class="rounded-lg uppercase font-semibold bg-purple-500 text-white inline-flex justify-center items-center px-4 py-2 transform active:scale-90 duration-150 ease-in-out">
                 <svg xmlns="http    ://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

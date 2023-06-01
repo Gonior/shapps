@@ -50,35 +50,45 @@
       </button>
     
   </div>
-  <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto">
-    <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 1</h1>
-    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+  <div class="h-[40vh] sm:h-full border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto">
+    <h1 class="bg-white sticky -top-3 sm:top-0 mb-2 font-bold py-2 text-gray-900 text-3xl">Lantai 1</h1>
+    <div class="grid grid-cols-5 md:grid-cols-4 lg:grid-cols-6 gap-2">
       
       {#each numsList.filter(n => n.data().floor === "Lantai 1") as n}
-          
-        <NumberComp num={n.data().number} />
-          
+          <button>
+              <NumberComp num={n.data().number} area={n.data().area} />
+          </button>
+          {:else}    
+           <h1 class="col-span-3 sm:col-span-6 text-center text-gray-400 font-semibold">Kosong</h1>
       {/each}
       
     </div>
     
   </div>
   <div class="">
-    <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto sm:h-[52vh] mb-2">
-      <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 2</h1>
+    <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto h-[30vh] sm:h-[52vh] mb-2">
+      <h1 class="bg-white sticky -top-3 sm:top-0 mb-2 font-bold py-2 text-gray-900 text-3xl">Lantai 2</h1>
       <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {#each numsList.filter(n => n.data().floor === "Lantai 2") as n}
-            <NumberComp num={n.data().number} />
+              <button>
+                  <NumberComp num={n.data().number} area="None" />
+              </button>
+              {:else}    
+              <h1 class="col-span-3 sm:col-span-6 text-center text-gray-400 font-semibold">Kosong</h1>
           {/each}
       
 
       </div>
     </div>
-    <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto sm:h-[37vh] ">
-      <h1 class="bg-white sticky top-0 font-bold py-2 text-gray-900 text-3xl">Lantai 3</h1>
+    <div class="border rounded-lg px-2 py-2 sm:py-0 overflow-y-auto h-[20vh] sm:h-[37vh]">
+      <h1 class="bg-white sticky -top-3 sm:top-0 mb-2 font-bold py-2 text-gray-900 text-3xl">Lantai 3</h1>
       <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {#each numsList.filter(n => n.data().floor === "Lantai 3") as n}
-            <NumberComp num={n.data().number} />
+              <button>
+                  <NumberComp num={n.data().number} area="None" />
+              </button>
+          {:else}    
+           <h1 class="col-span-3 sm:col-span-6 text-center text-gray-400 font-semibold">Kosong</h1>
           {/each}
       </div>
     </div>

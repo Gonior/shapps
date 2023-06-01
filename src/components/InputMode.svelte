@@ -12,7 +12,6 @@
     let numsList = []
     db.collection("nums").orderBy("pos", "asc").onSnapshot(snapdata => {
         numsList = snapdata.docs
-        
     })
 
     onMount(() => {
@@ -27,7 +26,8 @@
             db.collection("nums").add({
                 floor:floor,
                 number:number,
-                pos : date.getTime()
+                pos : date.getTime(),
+                area : "None",  
             });
         }
         
@@ -75,7 +75,7 @@
         
         {#each numsList.filter(n => n.data().floor === "Lantai 1") as n}
             <button on:click={() => handleOpenModal(false, n.id)}>
-                <NumberComp num={n.data().number} />
+                <NumberComp num={n.data().number} area={n.data().area} />
             </button>
             {:else}    
              <h1 class="col-span-3 sm:col-span-6 text-center text-gray-400 font-semibold">Kosong</h1>
@@ -90,8 +90,7 @@
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {#each numsList.filter(n => n.data().floor === "Lantai 2") as n}
                 <button on:click={() => handleOpenModal(false, n.id)}>
-                    <NumberComp num={n.data().number} />
-                    
+                    <NumberComp num={n.data().number} area="None" />
                 </button>
                 {:else}    
                 <h1 class="col-span-3 sm:col-span-6 text-center text-gray-400 font-semibold">Kosong</h1>
@@ -105,7 +104,7 @@
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {#each numsList.filter(n => n.data().floor === "Lantai 3") as n}
                 <button on:click={() => handleOpenModal(false, n.id)}>
-                    <NumberComp num={n.data().number} />
+                    <NumberComp num={n.data().number} area="None" />
                 </button>
             {:else}    
              <h1 class="col-span-3 sm:col-span-6 text-center text-gray-400 font-semibold">Kosong</h1>
