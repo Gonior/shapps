@@ -7,7 +7,7 @@
     export let num
     let area = "None"
     let prefix = 1
-    let areaOption = [{value:'None'},{value : "L", max : 10},{value:"B", max : 12}, {value:"D", max : 6}]
+    let areaOption = [{value:'None'},{value : "L", max : 10},{value:"B", max : 12}, {value:"D", max : 9}]
     
     
     onMount(() => { 
@@ -71,12 +71,11 @@
     const closeModal = () => {
         
         if (!inputMode) {
-            // $content.find(f => f.id === numsid).floor = floors.find(floor => floor.active === true).value
             db.collection('nums').doc(numsid).update({floor :floors.find(floor => floor.active === true).value})
             if(floors.find(floor => floor.active === true).id !== 1) db.collection('nums').doc(numsid).update({area : "None"})
             else if (area !== "None") db.collection('nums').doc(numsid).update({area : `G${prefix}${area}`})
             dispatch('data', {
-                inputMode : false,
+                inputMode10: false,
                 openModal : false,    
             })
         } else {

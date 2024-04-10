@@ -43,24 +43,3 @@
   <svelte:component this={menus.find(menu => menu.selected).components} ></svelte:component>
   
 </div>
-
-<style global lang="postcss">
-  @tailwind utilities;
-  @tailwind components;
-  @tailwind base;
-  @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-
-  /* .badge {
-    @apply h-1 w-1 border-[1px] border-white p-1 rounded-full bg-red-600 absolute -top-1 -right-1;
-  }
-
-  .btn-click-effect {
-    @apply transform  ease-in-out duration-100;
-  } */
-</style>
